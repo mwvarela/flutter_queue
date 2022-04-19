@@ -9,7 +9,7 @@ import 'infra/datasource/queue_datasource.dart';
 import 'infra/repositories/queue_repository.dart';
 
 final queueModule = [
-  Provider.value(value: FirebaseFirestore.instance),
+  Provider<FirebaseFirestore>.value(value: FirebaseFirestore.instance),
   Provider<IQueueDatasource>(
       create: (context) => QueueFirestoreDatasource(context.read())),
   Provider<IQueueRepository>(
