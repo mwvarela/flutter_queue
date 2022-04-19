@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -11,21 +9,14 @@ part 'configuration_state.dart';
 
 class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
   final IGetAllQueues getAllqueuesUsecase;
-  late final StreamSubscription _sub;
-  ConfigurationBloc(
-    this.getAllqueuesUsecase,
-  ) : super(ConfigurationInitial()) {
-    _sub = getAllqueuesUsecase.call().listen((event) {
-      add(AddQueue(event));
-    });
 
-    on<AddQueue>(
-      (event, emit) => emit(ConfigurationLoaded(event.queue)),
-    );
-  }
-  @override
-  Future<void> close() async {
-    await _sub.cancel();
-    await super.close();
+  ConfigurationBloc(this.getAllqueuesUsecase) : super(ConfigurationInitial()) {
+    on<FetchQueues>((event, emit) async {
+      emit(ConfigurationLoading());
+      await emit.forEach<List<QueueEntity>>(
+        getAllqueuesUsecase.call(),
+        onData: (queues) => ConfigurationLoaded(queues),
+      );
+    });
   }
 }

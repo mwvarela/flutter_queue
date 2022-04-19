@@ -12,5 +12,9 @@ void main() {
         when(() => usecase.call()).thenAnswer((_) => Stream.value([]));
         return ConfigurationBloc(usecase);
       },
-      expect: () => [isA<ConfigurationLoaded>()]);
+      act: (ConfigurationBloc bloc) => bloc.add(FetchQueues()),
+      expect: () => [
+            isA<ConfigurationLoading>(),
+            isA<ConfigurationLoaded>(),
+          ]);
 }

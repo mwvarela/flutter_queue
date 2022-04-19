@@ -3,8 +3,19 @@ import 'package:provider/provider.dart';
 
 import '../bloc/configuration_bloc.dart';
 
-class ConfigurationPage extends StatelessWidget {
+class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({Key? key}) : super(key: key);
+
+  @override
+  State<ConfigurationPage> createState() => _ConfigurationPageState();
+}
+
+class _ConfigurationPageState extends State<ConfigurationPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ConfigurationBloc>().add(FetchQueues());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +43,8 @@ class ConfigurationPage extends StatelessWidget {
                 ),
               ],
             ),
+            if (state is ConfigurationLoading)
+              const Center(child: CircularProgressIndicator()),
             if (state is ConfigurationLoaded)
               ListView.builder(
                 shrinkWrap: true,
