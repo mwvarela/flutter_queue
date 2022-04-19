@@ -12,25 +12,52 @@ class ConfigurationPage extends StatelessWidget {
     final state = bloc.state;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Configuração'),
+        title: const Text('Configuração'),
         centerTitle: true,
       ),
-      body: Center(
+      body: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('FILAS'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text('FILAS'),
+                Icon(
+                  Icons.add_box_outlined,
+                  color: Colors.green,
+                ),
+              ],
+            ),
             if (state is ConfigurationLoaded)
               ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.queues.length,
-                  itemBuilder: (context, index) {
-                    final queue = state.queues[index];
-                    return ListTile(
-                      title: Text('${queue.title} - ${queue.abbr}'),
-                      subtitle: Text('${queue.priority} de prioridade'),
-                    );
-                  })
+                shrinkWrap: true,
+                itemCount: state.queues.length,
+                itemBuilder: (context, index) {
+                  final queue = state.queues[index];
+                  return ListTile(
+                    title: Text('${queue.title} - ${queue.abbr}'),
+                    subtitle: Text('${queue.priority} de prioridade'),
+                    trailing: const Icon(
+                      Icons.remove_circle_outline,
+                      color: Colors.red,
+                    ),
+                  );
+                },
+              ),
+            const SizedBox(height: 20.0),
+            const Text('CONTROLE'),
+            const SizedBox(height: 10.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black,
+              ),
+              child: const Text('Reiniciar Filas'),
+              onPressed: () {},
+            )
           ],
         ),
       ),
