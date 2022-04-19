@@ -6,6 +6,7 @@ final configurationModule = [
   BlocProvider(
     create: (context) => ConfigurationBloc(
       context.read(),
+      context.read(),
     ),
   ),
 ];

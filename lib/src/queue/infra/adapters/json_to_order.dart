@@ -11,4 +11,13 @@ class JsonToOrder {
       }),
     );
   }
+
+  static Map<String, dynamic> toMap(Order order) {
+    return {
+      'id': order.id,
+      'position': order.position,
+      'status': order.status.name,
+      'timestamp': order.timestamp.toIso8601String(),
+    };
+  }
 }
