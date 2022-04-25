@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_queue/src/queue/domain/usecases/remove_queue.dart';
 
 import 'package:provider/provider.dart';
 
@@ -17,4 +18,5 @@ final queueModule = [
       create: (context) => QueueRepository(context.read())),
   Provider<IGetAllQueues>(create: (context) => GetAllQueues(context.read())),
   Provider<IAddNewQueue>(create: (context) => AddNewQueue(context.read())),
+  Provider<IRemoveQueue>(create: (context) => RemoveQueue(context.read())),
 ];

@@ -10,3 +10,9 @@ class AddNewQueue implements ConfigurationEvent {
 
   AddNewQueue(this.queue);
 }
+
+class RemoveQueue implements ConfigurationEvent {
+  final QueueEntity queue;
+
+  RemoveQueue(this.queue);
+}

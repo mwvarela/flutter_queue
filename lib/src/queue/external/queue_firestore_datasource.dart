@@ -30,4 +30,10 @@ class QueueFirestoreDatasource implements IQueueDatasource {
     final reference = firestore.collection('queues');
     reference.add(map..remove('id'));
   }
+
+  @override
+  Future<void> removeQueue(String id) async {
+    final reference = firestore.collection('queues');
+    await reference.doc(id).delete();
+  }
 }

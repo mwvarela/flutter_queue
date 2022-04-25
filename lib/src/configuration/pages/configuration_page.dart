@@ -113,9 +113,12 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
                     return ListTile(
                       title: Text('${queue.title} - ${queue.abbr}'),
                       subtitle: Text('${queue.priority} de prioridade'),
-                      trailing: const Icon(
-                        Icons.remove_circle_outline,
+                      trailing: IconButton(
+                        icon: const Icon(Icons.remove_circle_outline),
                         color: Colors.red,
+                        onPressed: () {
+                          bloc.add(RemoveQueue(queue));
+                        },
                       ),
                     );
                   },

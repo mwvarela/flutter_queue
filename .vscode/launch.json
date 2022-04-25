@@ -5,9 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter_queue",
+            "name": "flutter_queue mobile",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "-d",
+                "emulator-5554",
+            ]
+        },
+        {
+            "name": "flutter_queue web",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "-d",
+                "edge",
+            ]
         },
         {
             "name": "flutter_queue (profile mode)",
