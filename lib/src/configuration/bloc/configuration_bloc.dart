@@ -31,6 +31,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     await emit.forEach<List<QueueEntity>>(
       getAllQueuesUsecase.call(),
       onData: (queues) => ConfigurationLoaded(queues),
+      onError: (error, st) => ConfigurationExeption(st.toString()),
     );
   }
 

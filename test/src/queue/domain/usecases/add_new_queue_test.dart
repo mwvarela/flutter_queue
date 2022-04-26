@@ -7,10 +7,10 @@ import '../../../../mocks/mocks.dart';
 void main() {
   test('add new queue ...', () async {
     final repository = IQueueRepositoryMock();
-    final queue = QueueEntityMock();
-    when(() => repository.addQueue(queue)).thenAnswer((_) => Future.value());
+    when(() => repository.addQueue(queueEntityMock))
+        .thenAnswer((_) => Future.value());
     final usecase = AddNewQueue(repository);
 
-    expect(usecase.call(queue), completes);
+    expect(usecase.call(queueEntityMock), completes);
   });
 }
