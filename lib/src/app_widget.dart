@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'configuration/configuration_module.dart';
-import 'configuration/pages/configuration_page.dart';
+import 'queue/presenter/pages/queue_page.dart';
 import 'queue/queue_module.dart';
 
 class AppWidget extends StatelessWidget {
@@ -13,13 +12,12 @@ class AppWidget extends StatelessWidget {
     return MultiProvider(
         providers: [
           ...queueModule,
-          ...configurationModule,
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.dark,
           darkTheme: ThemeData.dark(),
-          home: const ConfigurationPage(),
+          home: const QueuePage(),
         ));
   }
 }

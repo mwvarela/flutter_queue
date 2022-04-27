@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../bloc/configuration_bloc.dart';
+import '../bloc/queue_bloc.dart';
 import '../models/queue_model.dart';
 
-class ConfigurationPage extends StatefulWidget {
-  const ConfigurationPage({Key? key}) : super(key: key);
+class QueuePage extends StatefulWidget {
+  const QueuePage({Key? key}) : super(key: key);
 
   @override
-  State<ConfigurationPage> createState() => _ConfigurationPageState();
+  State<QueuePage> createState() => _QueuePageState();
 }
 
-class _ConfigurationPageState extends State<ConfigurationPage> {
+class _QueuePageState extends State<QueuePage> {
   @override
   void initState() {
     super.initState();
-    context.read<ConfigurationBloc>().add(FetchQueues());
+    context.read<QueueBloc>().add(FetchQueuesEvent());
   }
 
   Future<void> _addNewQueueDialog() async {
@@ -60,7 +60,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             actions: [
               TextButton(
                   onPressed: () {
-                    context.read<ConfigurationBloc>().add(AddNewQueue(queue));
+                    context.read<QueueBloc>().add(AddNewQueueEvent(queue));
                     Navigator.pop(context);
                   },
                   child: const Text('Salvar')),
@@ -76,7 +76,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ConfigurationBloc>();
+    final bloc = context.watch<QueueBloc>();
     final state = bloc.state;
     return Scaffold(
       appBar: AppBar(
@@ -102,9 +102,9 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
                   ),
                 ],
               ),
-              if (state is ConfigurationLoading)
+              if (state is QueueLoadingState)
                 const Center(child: CircularProgressIndicator()),
-              if (state is ConfigurationLoaded)
+              if (state is QueueLoadedState)
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.queues.length,
@@ -117,7 +117,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
                         icon: const Icon(Icons.remove_circle_outline),
                         color: Colors.red,
                         onPressed: () {
-                          bloc.add(RemoveQueue(queue));
+                          bloc.add(RemoveQueueEvent(queue));
                         },
                       ),
                     );

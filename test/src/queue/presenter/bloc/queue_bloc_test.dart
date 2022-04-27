@@ -1,13 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_queue/src/configuration/bloc/configuration_bloc.dart';
-
+import 'package:flutter_queue/src/queue/presenter/bloc/queue_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../../../mocks/mocks.dart';
 
 void main() {
-  blocTest<ConfigurationBloc, ConfigurationState>(
+  blocTest<QueueBloc, QueueState>(
     'FetchQueues',
     build: () {
       final useCaseGetAllQueues = IGetAllQueuesMock();
@@ -15,17 +14,17 @@ void main() {
       final useCaseRemoveQueue = IRemoveQueueMock();
       when(() => useCaseGetAllQueues.call())
           .thenAnswer((_) => Stream.value([]));
-      return ConfigurationBloc(
+      return QueueBloc(
           useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
     },
-    act: (bloc) => bloc.add(FetchQueues()),
+    act: (bloc) => bloc.add(FetchQueuesEvent()),
     expect: () => [
-      isA<ConfigurationLoading>(),
-      isA<ConfigurationLoaded>(),
+      isA<QueueLoadingState>(),
+      isA<QueueLoadedState>(),
     ],
   );
 
-  blocTest<ConfigurationBloc, ConfigurationState>(
+  blocTest<QueueBloc, QueueState>(
     'FetchQueues onError',
     build: () {
       final useCaseGetAllQueues = IGetAllQueuesMock();
@@ -33,17 +32,17 @@ void main() {
       final useCaseRemoveQueue = IRemoveQueueMock();
       when(() => useCaseGetAllQueues.call())
           .thenAnswer((_) => Stream.error(Exception('Deu Erro')));
-      return ConfigurationBloc(
+      return QueueBloc(
           useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
     },
-    act: (bloc) => bloc.add(FetchQueues()),
+    act: (bloc) => bloc.add(FetchQueuesEvent()),
     expect: () => [
-      isA<ConfigurationLoading>(),
-      isA<ConfigurationExeption>(),
+      isA<QueueLoadingState>(),
+      isA<QueueExeptionState>(),
     ],
   );
 
-  blocTest<ConfigurationBloc, ConfigurationState>(
+  blocTest<QueueBloc, QueueState>(
     'AddNewQueue',
     build: () {
       final useCaseGetAllQueues = IGetAllQueuesMock();
@@ -51,14 +50,14 @@ void main() {
       final useCaseRemoveQueue = IRemoveQueueMock();
       when(() => useCaseAddNewQueue.call(queueEntityMock))
           .thenAnswer((_) => Future.value());
-      return ConfigurationBloc(
+      return QueueBloc(
           useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
     },
-    act: (bloc) => bloc.add(AddNewQueue(queueEntityMock)),
+    act: (bloc) => bloc.add(AddNewQueueEvent(queueEntityMock)),
     expect: () => [],
   );
 
-  blocTest<ConfigurationBloc, ConfigurationState>(
+  blocTest<QueueBloc, QueueState>(
     'RemoveQueue',
     build: () {
       final useCaseGetAllQueues = IGetAllQueuesMock();
@@ -66,10 +65,10 @@ void main() {
       final useCaseRemoveQueue = IRemoveQueueMock();
       when(() => useCaseRemoveQueue.call(queueEntityMock))
           .thenAnswer((_) => Future.value());
-      return ConfigurationBloc(
+      return QueueBloc(
           useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
     },
-    act: (bloc) => bloc.add(RemoveQueue(queueEntityMock)),
+    act: (bloc) => bloc.add(RemoveQueueEvent(queueEntityMock)),
     expect: () => [],
   );
 }
