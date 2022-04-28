@@ -26,4 +26,17 @@ void main() {
     expect(queues.docs.first['title'], 'Exames');
     expect(queues.docs.first.data().containsKey('id'), false);
   });
+
+  test('queue firestore datasource removeAllOrders', () async {
+    final firestore = FakeFirebaseFirestore();
+    final datasource = QueueFirestoreDatasource(firestore);
+    await datasource.addQueue(queueEntityMap);
+    await datasource.addQueue(queueEntityMap);
+    await datasource.removeAllOrders();
+
+    final ref = firestore.collection('queues');
+    final queues = await ref.get();
+    expect(queues.docs.first.data().containsKey('orders'), false);
+    expect(queues.docs.last.data().containsKey('orders'), false);
+  });
 }

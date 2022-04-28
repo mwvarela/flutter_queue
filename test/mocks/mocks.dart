@@ -20,7 +20,7 @@ class IRemoveQueueMock extends Mock implements IRemoveQueue {}
 class IQueueDatasourceMock extends Mock implements IQueueDatasource {}
 
 final queueEntityMock = QueueEntity(
-  id: 'asdf',
+  id: 'FrDwSgH',
   title: 'Exames',
   abbr: 'EX',
   priority: 3,
@@ -28,7 +28,7 @@ final queueEntityMock = QueueEntity(
 );
 
 final queueEntityMap = {
-  'id': 'asdf',
+  'id': 'FrDwSgH',
   'title': 'Exames',
   'abbr': 'EX',
   'priority': 3,
@@ -37,6 +37,12 @@ final queueEntityMap = {
       'id': 'asdf',
       'position': 1,
       'timestamp': '2022-04-18 16:53:30',
+      'status': 'attending',
+    },
+    {
+      'id': 'freds',
+      'position': 2,
+      'timestamp': '2022-04-19 10:00:30',
       'status': 'attending',
     }
   ],

@@ -2,4 +2,5 @@ abstract class IQueueDatasource {
   Stream<List<Map>> getAllQueues();
   Future<void> addQueue(Map<String, dynamic> map);
   Future<void> removeQueue(String id);
+  Future<void> removeAllOrders();
 }

@@ -14,7 +14,7 @@ void main() {
 
   test('json to order toMap', () {
     final map = JsonToOrder.toMap(orderEntityMock);
-    expect(map['id'], 'asdf');
+    expect(map['id'], 'FrDwSgH');
     expect(map['position'], 1);
   });
 }
