@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:meta/meta.dart';
@@ -5,6 +7,7 @@ import 'package:meta/meta.dart';
 import '../../domain/entities/queue_entity.dart';
 import '../../domain/usecases/add_new_queue.dart';
 import '../../domain/usecases/get_all_queues.dart';
+import '../../domain/usecases/remove_all_orders.dart';
 import '../../domain/usecases/remove_queue.dart';
 
 part 'queue_event.dart';
@@ -14,15 +17,18 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> {
   final IGetAllQueues getAll;
   final IAddNewQueue addNew;
   final IRemoveQueue remove;
+  final IRemoveAllOrders removeAllOrders;
 
   QueueBloc(
     this.getAll,
     this.addNew,
     this.remove,
+    this.removeAllOrders,
   ) : super(QueueInitialState()) {
     on<FetchQueuesEvent>(_fetchQueues, transformer: restartable());
     on<AddNewQueueEvent>(_addNewQueue, transformer: sequential());
     on<RemoveQueueEvent>(_removeQueue, transformer: sequential());
+    on<RemoveAllOrdersEvent>(_removeAllOrders, transformer: droppable());
   }
 
   Future<void> _fetchQueues(
@@ -43,5 +49,10 @@ class QueueBloc extends Bloc<QueueEvent, QueueState> {
   Future<void> _removeQueue(
       RemoveQueueEvent event, Emitter<QueueState> emit) async {
     await remove.call(event.queue);
+  }
+
+  Future<void> _removeAllOrders(
+      RemoveAllOrdersEvent event, Emitter<QueueState> emit) async {
+    await removeAllOrders.call();
   }
 }

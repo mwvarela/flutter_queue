@@ -45,7 +45,14 @@ class QueueFirestoreDatasource implements IQueueDatasource {
     for (var doc in snapshots.docs) {
       final map = doc.data();
       map.remove('orders');
-      doc.reference.set(map);
+      await doc.reference.set(map);
     }
+  }
+
+  @override
+  Future<void> updateQueue(Map<String, dynamic> map) async {
+    final reference = firestore.collection('queues');
+    final doc = reference.doc(map['id']);
+    await doc.set(map);
   }
 }

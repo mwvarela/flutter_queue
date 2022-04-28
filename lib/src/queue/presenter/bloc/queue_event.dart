@@ -16,3 +16,5 @@ class RemoveQueueEvent implements QueueEvent {
 
   RemoveQueueEvent(this.queue);
 }
+
+class RemoveAllOrdersEvent implements QueueEvent {}

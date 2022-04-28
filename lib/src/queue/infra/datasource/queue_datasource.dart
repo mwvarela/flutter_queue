@@ -3,4 +3,5 @@ abstract class IQueueDatasource {
   Future<void> addQueue(Map<String, dynamic> map);
   Future<void> removeQueue(String id);
   Future<void> removeAllOrders();
+  Future<void> updateQueue(Map<String, dynamic> map);
 }

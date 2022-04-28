@@ -12,10 +12,15 @@ void main() {
       final useCaseGetAllQueues = IGetAllQueuesMock();
       final useCaseAddNewQueue = IAddNewQueueMock();
       final useCaseRemoveQueue = IRemoveQueueMock();
+      final useCaseRemoveAllOrders = IRemoveAllOrdersMock();
       when(() => useCaseGetAllQueues.call())
           .thenAnswer((_) => Stream.value([]));
       return QueueBloc(
-          useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
+        useCaseGetAllQueues,
+        useCaseAddNewQueue,
+        useCaseRemoveQueue,
+        useCaseRemoveAllOrders,
+      );
     },
     act: (bloc) => bloc.add(FetchQueuesEvent()),
     expect: () => [
@@ -30,10 +35,15 @@ void main() {
       final useCaseGetAllQueues = IGetAllQueuesMock();
       final useCaseAddNewQueue = IAddNewQueueMock();
       final useCaseRemoveQueue = IRemoveQueueMock();
+      final useCaseRemoveAllOrders = IRemoveAllOrdersMock();
       when(() => useCaseGetAllQueues.call())
           .thenAnswer((_) => Stream.error(Exception('Deu Erro')));
       return QueueBloc(
-          useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
+        useCaseGetAllQueues,
+        useCaseAddNewQueue,
+        useCaseRemoveQueue,
+        useCaseRemoveAllOrders,
+      );
     },
     act: (bloc) => bloc.add(FetchQueuesEvent()),
     expect: () => [
@@ -48,10 +58,15 @@ void main() {
       final useCaseGetAllQueues = IGetAllQueuesMock();
       final useCaseAddNewQueue = IAddNewQueueMock();
       final useCaseRemoveQueue = IRemoveQueueMock();
+      final useCaseRemoveAllOrders = IRemoveAllOrdersMock();
       when(() => useCaseAddNewQueue.call(queueEntityMock))
           .thenAnswer((_) => Future.value());
       return QueueBloc(
-          useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
+        useCaseGetAllQueues,
+        useCaseAddNewQueue,
+        useCaseRemoveQueue,
+        useCaseRemoveAllOrders,
+      );
     },
     act: (bloc) => bloc.add(AddNewQueueEvent(queueEntityMock)),
     expect: () => [],
@@ -63,10 +78,15 @@ void main() {
       final useCaseGetAllQueues = IGetAllQueuesMock();
       final useCaseAddNewQueue = IAddNewQueueMock();
       final useCaseRemoveQueue = IRemoveQueueMock();
+      final useCaseRemoveAllOrders = IRemoveAllOrdersMock();
       when(() => useCaseRemoveQueue.call(queueEntityMock))
           .thenAnswer((_) => Future.value());
       return QueueBloc(
-          useCaseGetAllQueues, useCaseAddNewQueue, useCaseRemoveQueue);
+        useCaseGetAllQueues,
+        useCaseAddNewQueue,
+        useCaseRemoveQueue,
+        useCaseRemoveAllOrders,
+      );
     },
     act: (bloc) => bloc.add(RemoveQueueEvent(queueEntityMock)),
     expect: () => [],

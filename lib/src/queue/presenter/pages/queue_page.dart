@@ -80,7 +80,7 @@ class _QueuePageState extends State<QueuePage> {
     final state = bloc.state;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Configuração'),
+        title: const Text('Filas'),
         centerTitle: true,
       ),
       body: Container(
@@ -131,7 +131,9 @@ class _QueuePageState extends State<QueuePage> {
                   primary: Colors.black,
                 ),
                 child: const Text('Reiniciar Filas'),
-                onPressed: () {},
+                onPressed: () {
+                  bloc.add(RemoveAllOrdersEvent());
+                },
               )
             ],
           ),

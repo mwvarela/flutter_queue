@@ -8,7 +8,7 @@ import '../../../../mocks/mocks.dart';
 void main() {
   test('GetAllQueues', () {
     final repository = IQueueRepositoryMock();
-    final entity = QueueEntityMock();
+    final entity = queueEntityMock;
     when(() => repository.getAllQueues())
         .thenAnswer((_) => Stream.value([entity]));
     final usecase = GetAllQueues(repository);
