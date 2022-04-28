@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_queue/src/queue/domain/usecases/generate_order.dart';
 import 'package:flutter_test/flutter_test.dart';
 
